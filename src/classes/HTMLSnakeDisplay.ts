@@ -1,14 +1,31 @@
+import { Dimension } from "../interfaces/Dimension";
 import { SnakeDisplay } from "../interfaces/SnakeDisplay";
+import { GameContext } from "./GameContext";
 
 export class HTMLSnakeDisplay implements SnakeDisplay {
-    constructor(private ctx: CanvasRenderingContext2D){}
+    private blockWidth: number;
+    private blockHeight: number;
+
+    constructor(private ctx: CanvasRenderingContext2D,
+        private game: GameContext,
+        dimension: Dimension){
+            this.blockWidth = dimension.width / game.width ;
+            this.blockHeight = dimension.height / game.height;
+            console.log(this.blockWidth + ", " + this.blockHeight);
+        }
     
     
     refresh(): void {
-        this.ctx.lineWidth = 2;
-        this.ctx.moveTo(0, 0);
-        this.ctx.lineTo(800, 600);
-        this.ctx.strokeStyle = "green";
-        this.ctx.stroke();
+        this.game.showSnake(this);
+    }
+
+    drawSnakeBlock(column: number, row: number) {
+        this.ctx.fillStyle="blue"; 
+        this.ctx.fillRect(column * this.blockWidth, row * this.blockHeight,
+        this.blockWidth, this.blockHeight);
+        this.ctx.strokeStyle="black"; 
+        this.ctx.strokeRect(column * this.blockWidth, row * this.blockHeight,
+            this.blockWidth, this.blockHeight);
+            
     }
 }
