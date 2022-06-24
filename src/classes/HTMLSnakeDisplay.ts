@@ -17,15 +17,32 @@ export class HTMLSnakeDisplay implements SnakeDisplay {
     
     refresh(): void {
         this.game.showSnake(this);
+        this.drawFood(5, 8);
     }
 
     drawSnakeBlock(column: number, row: number) {
+        this.ctx.save();
         this.ctx.fillStyle="blue"; 
         this.ctx.fillRect(column * this.blockWidth, row * this.blockHeight,
         this.blockWidth, this.blockHeight);
         this.ctx.strokeStyle="black"; 
         this.ctx.strokeRect(column * this.blockWidth, row * this.blockHeight,
             this.blockWidth, this.blockHeight);
-            
+        this.ctx.restore();
+    }
+
+    drawFood(column: number, row: number): void {
+        this.ctx.beginPath();
+        this.ctx.strokeStyle="yellow"; 
+        this.ctx.fillStyle="red"; 
+        const margin = 2;
+        const radius = this.blockWidth / 2;
+        this.ctx.arc(radius + (column * this.blockWidth), radius + row * this.blockHeight,
+            radius - 2 * margin, 0, 360);
+            this.ctx.stroke();
+
+        this.ctx.fill();
+        this.ctx.stroke();
+        this.ctx.closePath();
     }
 }
