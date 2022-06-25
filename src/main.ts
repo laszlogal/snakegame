@@ -12,6 +12,8 @@ let game = new GameContext(30, 30, options);
 if (ctx) {
    let dimension: Dimension = {"width": canvas.offsetWidth, "height": canvas.offsetHeight}
    let display: SnakeDisplay = new HTMLSnakeDisplay(ctx, game, dimension);
+   game.snakeLeft();
+   game.moveSnake();
    display.refresh();
    console.log("ready for Snake!");
 } else {

@@ -20,6 +20,16 @@ describe("Snake test", () => {
         blockEquals(snake.tail(), 10, 11);
         blockEquals(snake.head(), 10, 13);
     });
+
+    it("Move left", () => {
+        const tail: SnakeBlock = [10, 10];
+        let snake = new Snake(tail, 3, Direction.DOWN);
+        snake.turnLeft();
+        snake.move();
+        //blockEquals(snake.tail(), 10, 11);
+        blockEquals(snake.head(), 9, 12);
+    });
+
 })
 
 function blockEquals(head: SnakeBlock, col: number, row: number) {

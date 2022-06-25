@@ -1,4 +1,4 @@
-import { Direction } from "../classes/Direction";
+import { Direction } from "../classes/Direction.js";
 export class Snake {
     constructor(tailBlock, length, direction) {
         this.direction = direction;
@@ -19,12 +19,18 @@ export class Snake {
         });
     }
     move() {
-        this.body.shift;
+        this.body.shift();
         this.body.push(this.newHead());
     }
     newHead() {
         let result = [this.head()[0], this.head()[1]];
         switch (this.direction) {
+            case Direction.LEFT:
+                result[0]--;
+                break;
+            case Direction.RIGHT:
+                result[0]++;
+                break;
             case Direction.DOWN:
                 result[1]++;
                 break;
@@ -33,5 +39,8 @@ export class Snake {
                 break;
         }
         return result;
+    }
+    turnLeft() {
+        this.direction = Direction.LEFT;
     }
 }

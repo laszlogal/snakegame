@@ -1,8 +1,9 @@
 import { SnakeDisplay } from "../interfaces/SnakeDisplay";
-import { Direction } from "../classes/Direction";
+import { Direction } from "../classes/Direction.js";
 export type SnakeBlock = [number, number];
 
 export class Snake {
+    
     private body: SnakeBlock[] =[];
     constructor(
         tailBlock: SnakeBlock, length: number,
@@ -27,7 +28,7 @@ export class Snake {
     }
 
     move() {
-        this.body.shift;
+        this.body.shift();
         this.body.push(this.newHead())
         
     }
@@ -35,14 +36,23 @@ export class Snake {
     newHead() : SnakeBlock {
         let result: SnakeBlock = [this.head()[0], this.head()[1]];
         switch (this.direction) {
+            case Direction.LEFT:
+                result[0]--;
+                break;
+            case Direction.RIGHT:
+                result[0]++;
+                break;
             case Direction.DOWN: 
                 result[1]++;
                 break;
             case Direction.UP:
                 result[1]++; 
-                 break;                         
+                break;                         
          }
          return result;
      }
-
+     
+     turnLeft() {
+        this.direction = Direction.LEFT;
+    }
 } 

@@ -31,4 +31,8 @@ export class GameContext {
     moveSnake() {
         this.snake.move();
     }
+
+    snakeLeft() {
+        this.snake.turnLeft();
+    }
 }

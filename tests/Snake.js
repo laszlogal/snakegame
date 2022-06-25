@@ -17,6 +17,14 @@ describe("Snake test", function () {
         blockEquals(snake.tail(), 10, 11);
         blockEquals(snake.head(), 10, 13);
     });
+    it("Move left", function () {
+        var tail = [10, 10];
+        var snake = new Snake_1.Snake(tail, 3, Direction_1.Direction.DOWN);
+        snake.turnLeft();
+        snake.move();
+        //blockEquals(snake.tail(), 10, 11);
+        blockEquals(snake.head(), 9, 12);
+    });
 });
 function blockEquals(head, col, row) {
     (0, chai_1.expect)(head[0]).equal(col);
