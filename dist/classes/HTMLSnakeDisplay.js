@@ -1,13 +1,10 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.HTMLSnakeDisplay = void 0;
-class HTMLSnakeDisplay {
+export class HTMLSnakeDisplay {
     constructor(ctx, game, dimension) {
         this.ctx = ctx;
         this.game = game;
         this.dimension = dimension;
-        this.blockWidth = dimension.width / game.width;
-        this.blockHeight = dimension.height / game.height;
+        this.blockWidth = dimension.width / game.options.columns;
+        this.blockHeight = dimension.height / game.options.rows;
         console.log(this.blockWidth + ", " + this.blockHeight);
     }
     refresh() {
@@ -22,6 +19,7 @@ class HTMLSnakeDisplay {
         this.ctx.save();
         this.ctx.strokeStyle = "green";
         this.ctx.lineWidth = 4;
+        this.ctx.clearRect(0, 0, this.dimension.width, this.dimension.height);
         this.ctx.strokeRect(0, 0, this.dimension.width, this.dimension.height);
         this.ctx.restore;
     }
@@ -29,12 +27,12 @@ class HTMLSnakeDisplay {
         this.ctx.save();
         this.ctx.strokeStyle = "grey";
         this.ctx.lineWidth = 1;
-        for (let i = 0; i < this.game.width; i++) {
+        for (let i = 0; i < this.game.options.columns; i++) {
             const column = this.blockWidth * i;
             this.ctx.moveTo(column, 0);
             this.ctx.lineTo(column, this.dimension.height);
         }
-        for (let i = 0; i < this.game.height; i++) {
+        for (let i = 0; i < this.game.options.rows; i++) {
             const row = this.blockHeight * i;
             this.ctx.moveTo(0, row);
             this.ctx.lineTo(this.dimension.width, row);
@@ -63,5 +61,4 @@ class HTMLSnakeDisplay {
         this.ctx.closePath();
     }
 }
-exports.HTMLSnakeDisplay = HTMLSnakeDisplay;
 //# sourceMappingURL=HTMLSnakeDisplay.js.map

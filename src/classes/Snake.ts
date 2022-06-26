@@ -1,5 +1,5 @@
 import { SnakeDisplay } from "../interfaces/SnakeDisplay";
-import { Direction } from "../classes/Direction";
+import { Direction } from "../classes/Direction.js";
 
 
 type SnakeBlock = [number, number];
@@ -10,10 +10,52 @@ class Snake {
     constructor(
         tailBlock: SnakeBlock, length: number,
         private direction: Direction) {
-            for (let i = 0; i < length; i++) {
-                this.body.push([tailBlock[0], tailBlock[1] + i]);
-            }
+            this.createSnake(tailBlock, length);
     }
+
+    createSnake(tailBlock: SnakeBlock, length: number) {
+        switch(this.direction) {
+            case Direction.LEFT:
+                this.createLeft(length, tailBlock);
+                break;
+            case Direction.RIGHT:
+                this.createRight(length, tailBlock);
+                break;
+            case Direction.DOWN:
+                this.createDown(length, tailBlock);
+                break;
+            case Direction.UP:
+                this.createUp(length, tailBlock);
+        };
+    }
+
+    private createLeft(length: number, tailBlock: SnakeBlock) {
+        for (let i = 0; i < length; i++) {
+            this.body.push([tailBlock[0] - i, tailBlock[1]]);
+        }
+    }
+
+    
+
+    private createRight(length: number, tailBlock: SnakeBlock) {
+        for (let i = 0; i < length; i++) {
+            this.body.push([tailBlock[0] + i, tailBlock[1]]);
+        }
+    }
+
+    private createDown(length: number, tailBlock: SnakeBlock) {
+        for (let i = 0; i < length; i++) {
+            this.body.push([tailBlock[0], tailBlock[1] + i]);
+        }
+    }
+
+    
+    private createUp(length: number, tailBlock: SnakeBlock) {
+        for (let i = 0; i < length; i++) {
+            this.body.push([tailBlock[0], tailBlock[1] - i]);
+        }
+    }
+
 
     head(): SnakeBlock {
         return this.body[this.body.length - 1];
@@ -32,7 +74,6 @@ class Snake {
     move() {
         this.body.shift();
         this.body.push(this.newHead())
-        
     }
 
     newHead() : SnakeBlock {
@@ -48,7 +89,7 @@ class Snake {
                 result[1]++;
                 break;
             case Direction.UP:
-                result[1]++; 
+                result[1]--; 
                 break;                         
          }
          return result;
@@ -56,5 +97,9 @@ class Snake {
      
      turnLeft() {
         this.direction = Direction.LEFT;
+    }
+
+     turnRight() {
+        this.direction = Direction.RIGHT;
     }
 } 
