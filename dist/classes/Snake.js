@@ -1,5 +1,8 @@
-import { Direction } from "../classes/Direction.js";
-export class Snake {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Snake = void 0;
+const Direction_js_1 = require("../classes/Direction.js");
+class Snake {
     constructor(tailBlock, length, direction) {
         this.direction = direction;
         this.body = [];
@@ -25,22 +28,24 @@ export class Snake {
     newHead() {
         let result = [this.head()[0], this.head()[1]];
         switch (this.direction) {
-            case Direction.LEFT:
+            case Direction_js_1.Direction.LEFT:
                 result[0]--;
                 break;
-            case Direction.RIGHT:
+            case Direction_js_1.Direction.RIGHT:
                 result[0]++;
                 break;
-            case Direction.DOWN:
+            case Direction_js_1.Direction.DOWN:
                 result[1]++;
                 break;
-            case Direction.UP:
+            case Direction_js_1.Direction.UP:
                 result[1]++;
                 break;
         }
         return result;
     }
     turnLeft() {
-        this.direction = Direction.LEFT;
+        this.direction = Direction_js_1.Direction.LEFT;
     }
 }
+exports.Snake = Snake;
+//# sourceMappingURL=Snake.js.map

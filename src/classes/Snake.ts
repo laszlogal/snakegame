@@ -1,9 +1,11 @@
 import { SnakeDisplay } from "../interfaces/SnakeDisplay";
-import { Direction } from "../classes/Direction.js";
-export type SnakeBlock = [number, number];
+import { Direction } from "../classes/Direction";
 
-export class Snake {
-    
+
+type SnakeBlock = [number, number];
+export {SnakeBlock, Snake}
+class Snake {
+        
     private body: SnakeBlock[] =[];
     constructor(
         tailBlock: SnakeBlock, length: number,

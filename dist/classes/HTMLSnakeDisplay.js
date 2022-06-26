@@ -1,4 +1,7 @@
-export class HTMLSnakeDisplay {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.HTMLSnakeDisplay = void 0;
+class HTMLSnakeDisplay {
     constructor(ctx, game, dimension) {
         this.ctx = ctx;
         this.game = game;
@@ -60,3 +63,5 @@ export class HTMLSnakeDisplay {
         this.ctx.closePath();
     }
 }
+exports.HTMLSnakeDisplay = HTMLSnakeDisplay;
+//# sourceMappingURL=HTMLSnakeDisplay.js.map

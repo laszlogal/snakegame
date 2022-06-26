@@ -1,7 +1,6 @@
 import { expect } from "chai";
 import { Direction } from "../src/classes/Direction"
-import { Snake, SnakeBlock } from "../src/classes/Snake"
-
+import { SnakeBlock, Snake } from "../src/classes/Snake"
 
 describe("Snake test", () => {
 
@@ -26,7 +25,7 @@ describe("Snake test", () => {
         let snake = new Snake(tail, 3, Direction.DOWN);
         snake.turnLeft();
         snake.move();
-        //blockEquals(snake.tail(), 10, 11);
+        blockEquals(snake.tail(), 10, 11);
         blockEquals(snake.head(), 9, 12);
     });
 
