@@ -1,25 +1,40 @@
+import { GameContext } from "./GameContext";
 import { Snake, SnakeBlock } from "./Snake";
 
 export class SnakeController {
-    private inGame: boolean = true;
     constructor(private snake: Snake,
-         private columns: number,
-         private rows: number) {}
+         private game: GameContext) {
+            this.game.placeFruit();
+         }
     move() {
-        if (!this.inGame) {
+        if (!this.game.isInGame()) {
             return;
         }
         const head = this.snake.head();
+        let newHead = this.snake.newHead();
         if (this.isSnakeOutOfTable(head)) {
             console.log("Crash: out of table");
-            this.inGame = false;
-        } else {
-            this.snake.move();
-        
-        }
-    }  
+            this.game.stop();
+        } else if (this.snake.contains(newHead)) {
+            console.log("Crash: Snake is connected!");
+            this.game.stop();
+        } else if (this.isFruitHit(newHead)) {
+                this.snake.grow();
+                this.game.placeFruit();
+                this.game.makePoint();
+            } else {
+                this.snake.move();    
+            }
+            
+    }
+    
+    isFruitHit(newHead: SnakeBlock): boolean {
+        const fruit = this.game.getFruit();  
+        return newHead[0] == fruit[0] && newHead[1] == fruit[1];
+    }
     
     isSnakeOutOfTable(head: SnakeBlock) {
-        return head[0] === 0 || head[0] === this.columns || head[1] === 0 || head[1] === this.rows;
+        return head[0] === 0 || head[0] === this.game.options.columns 
+            || head[1] === 0 || head[1] === this.game.options.rows;
     }
 }

@@ -22,8 +22,8 @@ export class HTMLSnakeDisplay implements SnakeDisplay {
         }
 
         this.game.showSnake(this);
-        this.drawFood(5, 8);
-    }
+        this.drawFruit(this.game.getFruit())
+      }
 
     drawFrame() {
         this.ctx.save();
@@ -64,14 +64,15 @@ export class HTMLSnakeDisplay implements SnakeDisplay {
         this.ctx.restore();
     }
 
-    drawFood(column: number, row: number): void {
+    drawFruit(fruit: [number, number]): void {
         this.ctx.lineWidth = 1;
          this.ctx.beginPath();
         this.ctx.strokeStyle="yellow"; 
         this.ctx.fillStyle="red"; 
         const margin = 2;
         const radius = this.blockWidth / 2;
-        this.ctx.arc(radius + (column * this.blockWidth), radius + row * this.blockHeight,
+        this.ctx.arc(radius + (fruit[0] * this.blockWidth),
+         radius + fruit[1] * this.blockHeight,
             radius - 2 * margin, 0, 360);
             this.ctx.stroke();
 

@@ -55,6 +55,9 @@ class Snake {
     }
     move() {
         this.body.shift();
+        this.grow();
+    }
+    grow() {
         this.body.push(this.newHead());
     }
     newHead() {
@@ -76,10 +79,34 @@ class Snake {
         return result;
     }
     turnLeft() {
-        this.direction = Direction.LEFT;
+        if (this.direction != Direction.RIGHT) {
+            this.direction = Direction.LEFT;
+        }
     }
     turnRight() {
-        this.direction = Direction.RIGHT;
+        if (this.direction != Direction.LEFT) {
+            this.direction = Direction.RIGHT;
+        }
+    }
+    turnUp() {
+        if (this.direction != Direction.DOWN) {
+            this.direction = Direction.UP;
+        }
+        ;
+    }
+    turnDown() {
+        if (this.direction != Direction.UP) {
+            this.direction = Direction.DOWN;
+        }
+        ;
+    }
+    contains(block) {
+        for (let i = 0; i < this.body.length; i++) {
+            if (block[0] === this.body[i][0] && block[1] === this.body[i][1]) {
+                return true;
+            }
+        }
+        return false;
     }
 }
 //# sourceMappingURL=Snake.js.map

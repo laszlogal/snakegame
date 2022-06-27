@@ -13,7 +13,7 @@ export class HTMLSnakeDisplay {
             this.drawGrid();
         }
         this.game.showSnake(this);
-        this.drawFood(5, 8);
+        this.drawFruit(this.game.getFruit());
     }
     drawFrame() {
         this.ctx.save();
@@ -47,14 +47,14 @@ export class HTMLSnakeDisplay {
         this.ctx.fillRect(column * this.blockWidth, row * this.blockHeight, this.blockWidth, this.blockHeight);
         this.ctx.restore();
     }
-    drawFood(column, row) {
+    drawFruit(fruit) {
         this.ctx.lineWidth = 1;
         this.ctx.beginPath();
         this.ctx.strokeStyle = "yellow";
         this.ctx.fillStyle = "red";
         const margin = 2;
         const radius = this.blockWidth / 2;
-        this.ctx.arc(radius + (column * this.blockWidth), radius + row * this.blockHeight, radius - 2 * margin, 0, 360);
+        this.ctx.arc(radius + (fruit[0] * this.blockWidth), radius + fruit[1] * this.blockHeight, radius - 2 * margin, 0, 360);
         this.ctx.stroke();
         this.ctx.fill();
         this.ctx.stroke();

@@ -3,7 +3,13 @@ import { SnakeDisplay } from "../interfaces/SnakeDisplay.js";
 import { SnakeOptions } from "../interfaces/SnakeOptions.js";
 
 export class GameContext {
-  
+    private inGame: boolean = false;
+    isInGame() : boolean {
+       return this.inGame;
+    }
+    
+    private fruit: [number, number] = [-1, -1];
+    private points: number = 0;
     public get options(): SnakeOptions {
         return this._options;
     }
@@ -13,15 +19,47 @@ export class GameContext {
         private snake: Snake){
     }
 
+    start() {
+        this.inGame = true;
+    }
+
+    stop() {
+        this.inGame = false;
+    }
+    
     showSnake(display: SnakeDisplay) {
         this.snake.show(display);
     }
-
-    moveSnake() {
-        this.snake.move();
+    
+    placeFruit() {
+        this.fruit = [-1, -1];
+        while (this.isIvalidFruit()) {
+            this.fruit = [Math.floor(Math.random() * this.options.columns),
+                 Math.floor(Math.random() * this.options.rows)];
+        }
     }
 
-    snakeLeft() {
-        this.snake.turnLeft();
+    isIvalidFruit() {
+        return this.fruit[0] === -1 || this.snake.contains(this.fruit);
     }
+
+    getFruit(): [number, number] {
+        return this.fruit;
+    }
+
+    makePoint() {
+        this.points += 5;
+    }
+
+    getPoints() : number {
+        return this.points;
+    }
+
+    toggle() {
+        if (this.inGame) {
+           this.stop();
+        } else {
+           this.start();}
+     }
+ 
 }
