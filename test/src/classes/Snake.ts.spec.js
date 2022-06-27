@@ -1,1 +1,0 @@
-import Snake.ts from '../../../src/classes/Snake'

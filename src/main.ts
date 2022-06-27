@@ -1,26 +1,29 @@
 import { SnakeDisplay } from "./interfaces/SnakeDisplay.js";
-import { HTMLSnakeDisplay } from "./classes/HTMLSnakeDisplay.js";
+import { HTMLSnakeDisplay } from "./classes/client/web/HTMLSnakeDisplay.js";
 import { GameContext } from "./classes/GameContext.js";
 import { Dimension } from "./interfaces/Dimension.js";
 import { SnakeOptions } from "./interfaces/SnakeOptions.js";
 import { Direction } from "./classes/Direction.js";
 import { Snake } from "./classes/Snake.js";
 import { SnakeController } from "./classes/SnakeController.js";
-import { HTMLLoop } from "./classes/HTMLLoop.js";
+import { HTMLLoop } from "./classes/client/web/HTMLLoop.js";
+import { HTMLInfo } from "./classes/client/web/HTMLInfo.js";
 
 let canvas = document.querySelector("#game-area") as HTMLCanvasElement;
 let pointsDiv = document.querySelector("#points") as HTMLDivElement;
-let info = document.querySelector("#info") as HTMLDivElement;
+let infoDiv = document.querySelector("#info") as HTMLDivElement;
+let info = new HTMLInfo(infoDiv);
 let ctx = canvas.getContext("2d");
 let options: SnakeOptions = {rows: 30, columns: 30, hasGrid: true};
 
 let snake = new Snake([options.columns / 2, options.rows / 2], 3, Direction.LEFT);
 let game = new GameContext(options, snake);
-let controller = new SnakeController(snake, game);
+let controller = new SnakeController(snake, game, info);
 if (ctx) {
    window.addEventListener("keydown", (event: KeyboardEvent) => {
-      console.log("key: " + event.key);
-      if(event.key === "ArrowUp") {
+      if (!game.isInGame()) {
+         game.start();
+      } else if(event.key === "ArrowUp") {
          snake.turnUp();
       } else if(event.key === "ArrowDown") {
          snake.turnDown();
@@ -29,15 +32,12 @@ if (ctx) {
       } else if(event.key === "ArrowRight") {
          snake.turnRight();
       } else if(event.key === 's') {
-         game.toggle()
+         game.stop();
       } else if(event.key === 'r') {
          controller.reset();
          display.refresh();
-      } else {
-         if (!game.isInGame()) {
-            game.start();
-         }
       }
+
       display.refresh();
    }, false);
 
@@ -48,10 +48,10 @@ if (ctx) {
          controller.move();
          display.refresh();
          pointsDiv.innerText = game.getPoints() + "";
-      } 
-      info.innerText = controller.getInfo();
+      } else {
+         info.show("Press any key to start!")
+      }
    })
-   console.log("ready for Snake!");
    loop.start();
    display.refresh();
 } else {

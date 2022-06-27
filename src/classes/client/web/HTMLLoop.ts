@@ -1,4 +1,4 @@
-import { Loop } from "../interfaces/Loop";
+import { Loop } from "../../../interfaces/Loop";
 
 export class HTMLLoop implements Loop {
     private fps: number = 60;    

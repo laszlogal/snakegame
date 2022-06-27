@@ -1,10 +1,11 @@
+import { Info } from "../interfaces/Info";
 import { GameContext } from "./GameContext";
 import { Snake, SnakeBlock } from "./Snake";
 
 export class SnakeController {
-    private info: string ="Get ready!"; 
     constructor(private snake: Snake,
-         private game: GameContext) {
+        private game: GameContext,
+        private info: Info) {
             this.game.placeFruit();
          }
     move() {
@@ -26,17 +27,17 @@ export class SnakeController {
     }
     
     private moveSnake() {
-        this.info = "";
+        this.info.clear();
         this.snake.move();
     }
 
     private crashConnected() {
-        this.info = "Crash: Snake is connected!";
+        this.info.show("Crash: Snake is connected!");
         this.game.stop();
     }
 
     private crashOutOfTable() {
-        this.info = "Crash: out of table";
+        this.info.show("Crash: out of table");
         this.game.stop();
     }
 
@@ -44,7 +45,7 @@ export class SnakeController {
         this.snake.grow();
         this.game.placeFruit();
         this.game.makePoint();
-        this.info = "Hmm...Fruit!";
+        this.info.show("Hmm...Fruit!!!");
     }
 
     isFruitHit(newHead: SnakeBlock): boolean {
@@ -64,6 +65,6 @@ export class SnakeController {
     reset() {
         this.snake.reset();
         this.game.reset();
-        this.info = "Get ready!"
+        this.info.show("Get ready!");
     }
 }

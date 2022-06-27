@@ -1,6 +1,6 @@
-import { Dimension } from "../interfaces/Dimension";
-import { SnakeDisplay } from "../interfaces/SnakeDisplay";
-import { GameContext } from "./GameContext";
+import { Dimension } from "../../../interfaces/Dimension";
+import { SnakeDisplay } from "../../../interfaces/SnakeDisplay";
+import { GameContext } from "../../GameContext";
 
 export class HTMLSnakeDisplay implements SnakeDisplay {
     private blockWidth: number;
