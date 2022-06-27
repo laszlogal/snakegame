@@ -6,6 +6,11 @@ export class GameContext {
         this.fruit = [-1, -1];
         this.points = 0;
     }
+    reset() {
+        this.stop();
+        this.fruit = [-1, -1];
+        this.points = 0;
+    }
     isInGame() {
         return this.inGame;
     }
@@ -14,6 +19,7 @@ export class GameContext {
     }
     start() {
         this.inGame = true;
+        this.placeFruit();
     }
     stop() {
         this.inGame = false;

@@ -10,6 +10,7 @@ import { HTMLLoop } from "./classes/HTMLLoop.js";
 
 let canvas = document.querySelector("#game-area") as HTMLCanvasElement;
 let pointsDiv = document.querySelector("#points") as HTMLDivElement;
+let info = document.querySelector("#info") as HTMLDivElement;
 let ctx = canvas.getContext("2d");
 let options: SnakeOptions = {rows: 30, columns: 30, hasGrid: true};
 
@@ -27,10 +28,15 @@ if (ctx) {
          snake.turnLeft();
       } else if(event.key === "ArrowRight") {
          snake.turnRight();
-      } else if(event.key === 'g') {
-         snake.grow();
       } else if(event.key === 's') {
          game.toggle()
+      } else if(event.key === 'r') {
+         controller.reset();
+         display.refresh();
+      } else {
+         if (!game.isInGame()) {
+            game.start();
+         }
       }
       display.refresh();
    }, false);
@@ -42,11 +48,12 @@ if (ctx) {
          controller.move();
          display.refresh();
          pointsDiv.innerText = game.getPoints() + "";
-      }
+      } 
+      info.innerText = controller.getInfo();
    })
    console.log("ready for Snake!");
-   game.start();
    loop.start();
+   display.refresh();
 } else {
    console.log("No context")
 }

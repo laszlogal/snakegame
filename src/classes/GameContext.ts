@@ -3,6 +3,12 @@ import { SnakeDisplay } from "../interfaces/SnakeDisplay.js";
 import { SnakeOptions } from "../interfaces/SnakeOptions.js";
 
 export class GameContext {
+    reset() {
+        this.stop();
+        this.fruit = [-1, -1];
+        this.points = 0;
+    }
+
     private inGame: boolean = false;
     isInGame() : boolean {
        return this.inGame;
@@ -13,7 +19,6 @@ export class GameContext {
     public get options(): SnakeOptions {
         return this._options;
     }
-
     
     constructor(private _options: SnakeOptions,
         private snake: Snake){
@@ -21,6 +26,7 @@ export class GameContext {
 
     start() {
         this.inGame = true;
+        this.placeFruit();
     }
 
     stop() {

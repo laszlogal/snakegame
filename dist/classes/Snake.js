@@ -2,6 +2,8 @@ import { Direction } from "../classes/Direction.js";
 export { Snake };
 class Snake {
     constructor(tailBlock, length, direction) {
+        this.tailBlock = tailBlock;
+        this.length = length;
         this.direction = direction;
         this.body = [];
         this.createSnake(tailBlock, length);
@@ -107,6 +109,11 @@ class Snake {
             }
         }
         return false;
+    }
+    reset() {
+        this.body = [];
+        this.direction = Math.floor(Math.random() * 4);
+        this.createSnake(this.tailBlock, this.length);
     }
 }
 //# sourceMappingURL=Snake.js.map

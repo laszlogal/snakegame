@@ -17,14 +17,14 @@ export class HTMLLoop implements Loop {
     }
 
     scheduleAnimation() {
-        window.requestAnimationFrame((time) => {this.execute(time)});
+        window.requestAnimationFrame((time) => {this.execute()});
     }
     
     stop(): void {
         throw new Error("Method not implemented.");
     }
 
-    execute(time: number): void {
+    execute(): void {
         if (!this.running) {
             return;
         }

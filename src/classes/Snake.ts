@@ -8,7 +8,8 @@ class Snake {
             
     private body: SnakeBlock[] =[];
     constructor(
-        tailBlock: SnakeBlock, length: number,
+        private tailBlock: SnakeBlock,
+        private length: number,
         private direction: Direction) {
             this.createSnake(tailBlock, length);
     }
@@ -132,4 +133,11 @@ class Snake {
         }
         return false;
     }
+
+    
+   reset() {
+    this.body = [];
+    this.direction = Math.floor(Math.random() * 4);
+    this.createSnake(this.tailBlock, this.length);
+ }
 } 
