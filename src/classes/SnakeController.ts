@@ -3,6 +3,7 @@ import { GameContext } from "./GameContext";
 import { Snake, SnakeBlock } from "./Snake";
 
 export class SnakeController {
+    
     constructor(private snake: Snake,
         private game: GameContext,
         private info: Info) {
@@ -66,5 +67,21 @@ export class SnakeController {
         this.snake.reset();
         this.game.reset();
         this.info.show("Get ready!");
+    }
+
+    turnSnakeUp() {
+        this.snake.turnUp();
+    }
+
+    turnSnakeDown() {
+        this.snake.turnDown();
+    }
+
+    turnSnakeLeft() {
+        this.snake.turnLeft();
+    }
+
+    turnSnakeRight() {
+        this.snake.turnRight();
     }
 }
