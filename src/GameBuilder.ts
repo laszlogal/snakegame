@@ -18,8 +18,9 @@ export class GameBuilder {
     constructor(factory: GameFactory) {
         this.snake = this.createSnake(this.options.columns, this.options.rows);
         this.game = new GameContext(this.options, this.snake); 
-        this.controller = new SnakeController(this.snake, this.game, factory.createInfo());
-        this.display = factory.createDisplay(this.game);
+        const info = factory.createInfo();
+        this.controller = new SnakeController(this.snake, this.game, info);
+        this.display = factory.createDisplay(this.game, info);
         this.loop = factory.createLoop(()  => {
             if (this.game.isInGame()) {
                 this.controller.move();
@@ -28,6 +29,7 @@ export class GameBuilder {
               // info.show("Press any key to start!")
             }
         });
+        factory.attachKeys(this.game, this.controller, this.display);
         
     }
 

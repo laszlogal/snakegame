@@ -1,4 +1,5 @@
 import { Dimension } from "../../../interfaces/Dimension";
+import { Info } from "../../../interfaces/Info";
 import { SnakeDisplay } from "../../../interfaces/SnakeDisplay";
 import { GameContext } from "../../GameContext";
 
@@ -8,11 +9,19 @@ export class HTMLSnakeDisplay implements SnakeDisplay {
 
     constructor(private ctx: CanvasRenderingContext2D,
         private game: GameContext,
-        private dimension: Dimension){
+        private dimension: Dimension,
+        private info: Info){
             this.blockWidth = dimension.width / game.options.columns;
             this.blockHeight = dimension.height / game.options.rows;
             console.log(this.blockWidth + ", " + this.blockHeight);
         }
+    showInfo(message: string): void {
+        this.info.show(message);
+    }
+    
+    showPoints(points: number): void {
+        this.info.points(points);
+    }
     
     
     refresh(): void {
